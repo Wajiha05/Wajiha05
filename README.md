@@ -151,6 +151,33 @@ I work at the seam where a neural network stops being math and starts being wire
 
 Three accelerators, three different compute patterns — a systolic array (dense linear algebra), a softmax unit (nonlinear, numerically sensitive), and a KNN engine (search/comparison, not arithmetic-bound). Together they cover most of what actually sits on the datapath of a real inference chip.
 
+**★ Flagship — the Softmax accelerator taken all the way to silicon, from RTL to a routed GDSII layout.**
+
+<table>
+<tr><td width="100%">
+
+### ⬢ ★ Fixed-Point Softmax Accelerator IP — RTL to GDSII in 45 nm CMOS
+**`Verilog` · `Cadence Genus` · `Cadence Innovus` · `GPDK045 (45 nm)` · `AXI4-Lite` · `AXI4-Stream`**
+
+A complete **RTL-to-GDSII implementation** of a fixed-point Softmax accelerator IP: up to 16 Q8.8 logits in, Q1.15 probabilities out, with max-subtraction, a LUT-based exponential (shift + LUT, no FPU) and a 256-entry reciprocal ROM. Synthesized with Genus, then floorplanned, placed, clock-tree-synthesized, hold-fixed and routed in Innovus.
+
+| | |
+|:---|:---|
+| **Flow** | RTL → Genus synthesis → Innovus floorplan, power grid, placement, CTS, hold fixing, routing → GDSII |
+| **Interfaces** | AXI4-Lite control/status registers · AXI4-Stream data in/out |
+| **Timing & power** | 100 MHz · +3.428 ns setup slack · 0 hold violations · 0.525 mW |
+| **Physical** | 172 × 172 µm die · 0 DRC / antenna / connectivity violations |
+| **Accuracy & latency** | 0.38% max error vs floating-point reference · deterministic 3N + 15 cycles |
+
+> **Why it matters:** it closes the loop from a model-level operation (softmax) to timing-clean, DRC-clean silicon — including the hold-fixing and utilization trade-offs that only show up in physical design.
+
+[![View Repository](https://img.shields.io/badge/View_Repository-RTL_to_GDSII_45nm-76B900?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Wajiha05/Fixed-Point-Softmax-Accelerator-IP-RTL-to-GDSII-in-45-nm-CMOS)
+
+**→ [`Fixed-Point Softmax Accelerator IP — RTL to GDSII repository`](https://github.com/Wajiha05/Fixed-Point-Softmax-Accelerator-IP-RTL-to-GDSII-in-45-nm-CMOS)**
+
+</td></tr>
+</table>
+
 <table>
 <tr><td width="100%">
 
